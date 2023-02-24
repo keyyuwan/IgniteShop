@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@stitches/react": "^1.2.8",
     "@types/node": "18.14.1",
     "@types/react": "18.0.28",
     "@types/react-dom": "18.0.11",
@@ -18,7 +19,7 @@
     "typescript": "4.9.5"
   },
   "devDependencies": {
-    "eslint": "8.34.0",
-    "@rocketseat/eslint-config": "^1.2.0"
+    "@rocketseat/eslint-config": "^1.2.0",
+    "eslint": "8.34.0"
   }
 }
