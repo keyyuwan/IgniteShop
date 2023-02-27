@@ -180,6 +180,11 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-18.14.1.tgz#90dad8476f1e42797c49d6f8b69aaf9f876fc69f"
   integrity sha512-QH+37Qds3E0eDlReeboBxfHbX9omAcBCXEzswCu6jySP642jiM3cYSIkU/REqwhCUqXdonHFuBfJDiAJxMNhaQ==
 
+"@types/node@>=8.1.0":
+  version "18.14.2"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-18.14.2.tgz#c076ed1d7b6095078ad3cf21dfeea951842778b1"
+  integrity sha512-1uEQxww3DaghA0RxqHx0O0ppVlo43pJhepY51OxuQIKHpjbnYLA7vcdwioNPzIqmC2u3I/dmylcqjlh0e7AyUA==
+
 "@types/prop-types@*":
   version "15.7.5"
   resolved "https://registry.yarnpkg.com/@types/prop-types/-/prop-types-15.7.5.tgz#5f19d2b85a98e9558036f6a3cacc8819420f05cf"
@@ -1393,6 +1398,11 @@ json5@^1.0.1:
     array-includes "^3.1.5"
     object.assign "^4.1.3"
 
+keen-slider@^6.8.5:
+  version "6.8.5"
+  resolved "https://registry.yarnpkg.com/keen-slider/-/keen-slider-6.8.5.tgz#1d96ff3ab77f195fc6cacd2e5aecc35d8ceb9702"
+  integrity sha512-9yoosfffgTCrkmbX8kCUMWsn9KDgPSkxBof5/0yXde001D1xao7i9ppfxQCCK0MLnoCa+Rdssby0jFbTTUM4rw==
+
 language-subtag-registry@~0.3.2:
   version "0.3.22"
   resolved "https://registry.yarnpkg.com/language-subtag-registry/-/language-subtag-registry-0.3.22.tgz#2e1500861b2e457eba7e7ae86877cbd08fa1fd1d"
@@ -1697,6 +1707,13 @@ punycode@^2.1.0:
   resolved "https://registry.yarnpkg.com/punycode/-/punycode-2.3.0.tgz#f67fa67c94da8f4d0cfff981aee4118064199b8f"
   integrity sha512-rRV+zQD8tVFys26lAGR9WUuS4iUAngJScM+ZRSKtvl5tKeZ2t5bvdNFdNHBW9FWR4guGHlgmsZ1G7BSm2wTbuA==
 
+qs@^6.11.0:
+  version "6.11.0"
+  resolved "https://registry.yarnpkg.com/qs/-/qs-6.11.0.tgz#fd0d963446f7a65e1367e01abd85429453f0c37a"
+  integrity sha512-MvjoMCJwEarSbUYk5O+nmoSzSutSsTwF85zcHPQ9OrlFoZOYIjaqBAJIqIXjptyD5vThxGq52Xu/MaJzRkIk4Q==
+  dependencies:
+    side-channel "^1.0.4"
+
 queue-microtask@^1.2.2:
   version "1.2.3"
   resolved "https://registry.yarnpkg.com/queue-microtask/-/queue-microtask-1.2.3.tgz#4929228bbc724dfac43e0efb058caf7b6cfb6243"
@@ -1897,6 +1914,14 @@ strip-json-comments@^3.1.0, strip-json-comments@^3.1.1:
   version "3.1.1"
   resolved "https://registry.yarnpkg.com/strip-json-comments/-/strip-json-comments-3.1.1.tgz#31f1281b3832630434831c310c01cccda8cbe006"
   integrity sha512-6fPc+R4ihwqP6N/aIv2f1gMH8lOVtWQHoqC4yK6oSDVVocumAsfCqjkXnqiYMhmMwS/mEHLp7Vehlt3ql6lEig==
+
+stripe@^11.12.0:
+  version "11.12.0"
+  resolved "https://registry.yarnpkg.com/stripe/-/stripe-11.12.0.tgz#2d7d4c37a6447a972128b1266e027693241704e3"
+  integrity sha512-7yzFyVV/eYpYalfjnw1f9sh/N3r5QVdx5MFtmpOg2QikKVAW4AptXC8P0wj1KNCd/LIo23nTDo0+m9788jHswg==
+  dependencies:
+    "@types/node" ">=8.1.0"
+    qs "^6.11.0"
 
 styled-jsx@5.1.1:
   version "5.1.1"
