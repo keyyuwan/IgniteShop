@@ -7,16 +7,18 @@ import { AppContainer } from '@/styles/pages/app'
 
 globalStyles()
 
-export default function App({ Component, pageProps }: AppProps) {
+export default function App({ Component, pageProps, ...appProps }: AppProps) {
+  const hideHeader = ['/success'].includes(appProps.router.pathname)
+
   return (
     <CartProvider
       currency="BRL"
       cartMode="checkout-session"
-      shouldPersist={false}
+      shouldPersist
       stripe={process.env.STRIPE_PUBLIC_KEY!}
     >
       <AppContainer>
-        <Header />
+        {!hideHeader && <Header />}
         <Component {...pageProps} />
       </AppContainer>
     </CartProvider>

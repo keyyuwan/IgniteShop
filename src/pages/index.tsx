@@ -16,10 +16,11 @@ import 'keen-slider/keen-slider.min.css'
 interface IProduct {
   id: string
   name: string
+  description: string
   imageUrl: string
   price: number
   priceFormatted: string
-  description: string
+  defaultPriceId: string
 }
 
 interface HomeProps {
@@ -39,13 +40,14 @@ export default function Home({ products }: HomeProps) {
   function handleAddProductToCart(event: MouseEvent, product: IProduct) {
     event.preventDefault() // prevent to going to link href
 
-    const { name, id, imageUrl, price, description } = product
+    const { name, id, imageUrl, price, description, defaultPriceId } = product
 
     addItem({
       id,
       name,
       description,
       price,
+      price_id: defaultPriceId,
       image: imageUrl,
       currency: 'BRL',
     })
@@ -102,13 +104,14 @@ export const getStaticProps: GetStaticProps = async () => {
     return {
       id: product.id,
       name: product.name,
+      description: product.description,
       imageUrl: product.images[0],
       price: price.unit_amount,
       priceFormatted: new Intl.NumberFormat('pt-BR', {
         style: 'currency',
         currency: 'BRL',
       }).format(price.unit_amount! / 100),
-      description: product.description,
+      defaultPriceId: price.id,
     }
   })
 

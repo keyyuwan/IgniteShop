@@ -153,9 +153,19 @@ export const CartSidebarFooter = styled('footer', {
     fontWeight: 'bold',
     fontSize: '$md',
 
-    '&:hover': {
+    '&:not(:disabled):hover': {
       background: '$green300',
       transition: 'background-color 0.2s',
     },
+
+    '&:disabled': {
+      cursor: 'not-allowed',
+    },
   },
+})
+
+export const CartSidebarEmptyText = styled('p', {
+  marginTop: '3rem',
+  fontSize: '$md',
+  fontWeight: 'bold',
 })

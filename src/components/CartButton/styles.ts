@@ -39,8 +39,21 @@ export const CartButtonContainer = styled('button', {
         width: 56,
         height: 56,
 
+        mode: {
+          full: {
+            svg: {
+              color: '$gray300',
+            },
+          },
+        },
+
         svg: {
           color: '$white',
+        },
+
+        '&:hover': {
+          backgroundColor: '$green300',
+          transition: 'background-color 0.2s',
         },
       },
     },
