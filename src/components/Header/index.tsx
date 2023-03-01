@@ -1,20 +1,28 @@
-import { Handbag } from 'phosphor-react'
-import { CartButton, CartCounter, HeaderContainer } from './styles'
+import * as DialogPrimitive from '@radix-ui/react-dialog'
+import { useShoppingCart } from 'use-shopping-cart'
+
+import { CartButton } from '../CartButton'
+import { CartSidebar } from '../CartSidebar'
+import { HeaderContainer } from './styles'
 
 import logoImg from '@/assets/logo.svg'
 
 export function Header() {
-  const isCartEmpty = true
+  const { cartCount } = useShoppingCart()
+
+  const isCartEmpty = cartCount === 0
 
   return (
     <HeaderContainer>
       <img src={logoImg.src} alt="" />
 
-      <CartButton mode="empty">
-        <Handbag weight="bold" size={24} />
+      <DialogPrimitive.Root>
+        <DialogPrimitive.Trigger asChild disabled={isCartEmpty}>
+          <CartButton />
+        </DialogPrimitive.Trigger>
 
-        {!isCartEmpty && <CartCounter>1</CartCounter>}
-      </CartButton>
+        <CartSidebar />
+      </DialogPrimitive.Root>
     </HeaderContainer>
   )
 }

@@ -1,6 +1,6 @@
 import { styled } from '..'
 
-export const Container = styled('div', {
+export const AppContainer = styled('div', {
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'flex-start',

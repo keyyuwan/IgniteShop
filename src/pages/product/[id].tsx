@@ -4,6 +4,7 @@ import Head from 'next/head'
 import Image from 'next/legacy/image'
 import Stripe from 'stripe'
 import axios from 'axios'
+import { useShoppingCart } from 'use-shopping-cart'
 
 import { stripe } from '@/lib/stripe'
 import {
@@ -17,35 +18,51 @@ interface ProductProps {
     id: string
     name: string
     imageUrl: string
-    price: string
+    price: number
+    priceFormatted: string
     description: string
     defaultPriceId: string
   }
 }
 
 export default function Product({ product }: ProductProps) {
-  const [isCreatingCheckoutSession, setIsCreatingCheckoutSession] =
-    useState(false)
+  const { addItem } = useShoppingCart()
 
-  async function handleBuyProduct() {
-    try {
-      setIsCreatingCheckoutSession(true)
+  // const [isCreatingCheckoutSession, setIsCreatingCheckoutSession] =
+  //   useState(false)
 
-      const response = await axios.post('/api/checkout', {
-        priceId: product.defaultPriceId,
-      })
+  // async function handleBuyProduct() {
+  //   try {
+  //     setIsCreatingCheckoutSession(true)
 
-      const { checkoutUrl } = response.data
+  //     const response = await axios.post('/api/checkout', {
+  //       priceId: product.defaultPriceId,
+  //     })
 
-      window.location.href = checkoutUrl
-    } catch (err) {
-      // Conectar com uma ferramenta de observabilidade (Datadog, Sentry)
+  //     const { checkoutUrl } = response.data
 
-      setIsCreatingCheckoutSession(false)
+  //     window.location.href = checkoutUrl
+  //   } catch (err) {
+  //     // Conectar com uma ferramenta de observabilidade (Datadog, Sentry)
 
-      alert('Falha ao redirecionar ao checkout')
-      console.log(err)
-    }
+  //     setIsCreatingCheckoutSession(false)
+
+  //     alert('Falha ao redirecionar ao checkout')
+  //     console.log(err)
+  //   }
+  // }
+
+  function handleAddProductToCart() {
+    const { name, id, imageUrl, price, description } = product
+
+    addItem({
+      id,
+      name,
+      description,
+      price,
+      image: imageUrl,
+      currency: 'BRL',
+    })
   }
 
   return (
@@ -61,15 +78,15 @@ export default function Product({ product }: ProductProps) {
 
         <ProductDetails>
           <h1>{product.name}</h1>
-          <span>{product.price}</span>
+          <span>{product.priceFormatted}</span>
 
           <p>{product.description}</p>
 
           <button
-            onClick={handleBuyProduct}
-            disabled={isCreatingCheckoutSession}
+            onClick={handleAddProductToCart}
+            // disabled={isCreatingCheckoutSession}
           >
-            Comprar agora
+            Colocar na sacola
           </button>
         </ProductDetails>
       </ProductContainer>
@@ -101,7 +118,8 @@ export const getStaticProps: GetStaticProps<any, { id: string }> = async ({
         id: product.id,
         name: product.name,
         imageUrl: product.images[0],
-        price: new Intl.NumberFormat('pt-BR', {
+        price: price.unit_amount,
+        priceFormatted: new Intl.NumberFormat('pt-BR', {
           style: 'currency',
           currency: 'BRL',
         }).format(price.unit_amount! / 100),

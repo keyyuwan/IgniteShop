@@ -1,22 +1,29 @@
+import { MouseEvent } from 'react'
 import { GetStaticProps } from 'next'
 import Image from 'next/legacy/image'
 import Link from 'next/link'
 import Head from 'next/head'
 import Stripe from 'stripe'
 import { useKeenSlider } from 'keen-slider/react'
+import { useShoppingCart } from 'use-shopping-cart'
 
 import { stripe } from '@/lib/stripe'
-import { HomeContainer, Product } from '@/styles/pages/home'
+import { CartButton } from '@/components/CartButton'
+import { HomeContainer, Product, ProductFooter } from '@/styles/pages/home'
 
 import 'keen-slider/keen-slider.min.css'
 
+interface IProduct {
+  id: string
+  name: string
+  imageUrl: string
+  price: number
+  priceFormatted: string
+  description: string
+}
+
 interface HomeProps {
-  products: {
-    id: string
-    name: string
-    imageUrl: string
-    price: string
-  }[]
+  products: IProduct[]
 }
 
 export default function Home({ products }: HomeProps) {
@@ -26,6 +33,23 @@ export default function Home({ products }: HomeProps) {
       spacing: 48,
     },
   })
+
+  const { addItem } = useShoppingCart()
+
+  function handleAddProductToCart(event: MouseEvent, product: IProduct) {
+    event.preventDefault() // prevent to going to link href
+
+    const { name, id, imageUrl, price, description } = product
+
+    addItem({
+      id,
+      name,
+      description,
+      price,
+      image: imageUrl,
+      currency: 'BRL',
+    })
+  }
 
   return (
     <>
@@ -48,10 +72,17 @@ export default function Home({ products }: HomeProps) {
                 alt="Camiseta"
               />
 
-              <footer>
-                <strong>{product.name}</strong>
-                <span>{product.price}</span>
-              </footer>
+              <ProductFooter>
+                <div>
+                  <strong>{product.name}</strong>
+                  <span>{product.priceFormatted}</span>
+                </div>
+
+                <CartButton
+                  color="green"
+                  onClick={(event) => handleAddProductToCart(event, product)}
+                />
+              </ProductFooter>
             </Product>
           </Link>
         ))}
@@ -72,10 +103,12 @@ export const getStaticProps: GetStaticProps = async () => {
       id: product.id,
       name: product.name,
       imageUrl: product.images[0],
-      price: new Intl.NumberFormat('pt-BR', {
+      price: price.unit_amount,
+      priceFormatted: new Intl.NumberFormat('pt-BR', {
         style: 'currency',
         currency: 'BRL',
       }).format(price.unit_amount! / 100),
+      description: product.description,
     }
   })
 
